@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>HOL</title>
+
+	<meta charset="utf-8">
+	<meta name="format" content="complete">
+  <style type="text/css">
+html {
+    /* the line height value of 1.9 is fixed for a line height multiple of 1.4 in the text view */
+    font: normal 106.2%/1.9 serif;
+}
+
+body {
+    font-family: 'Avenir Next', Helvetica, Georgia, serif;
+    word-wrap: break-word;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+    overflow:hidden;
+    background-color: #f2f2f2;
+    color: #3c3c3c;
+}
+
+/**
+ *
+    Wrappers
+ *
+ */
+
+#wrapper {
+    position: fixed;
+    width: 99.9%;
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    font-size: 1.0em;
+}
+
+#wrapper::-webkit-scrollbar {
+    width: 8px;
+    height: 10px;
+    -webkit-transition: all .45s ease-in;
+    position: relative;
+}
+#wrapper::-webkit-scrollbar-button:start:decrement, #wrapper::-webkit-scrollbar-button:end:increment {
+    height: 0px;
+    display: block;
+    background-color: transparent;
+}
+#wrapper::-webkit-scrollbar-track-piece {
+    background-color:
+    transparent;
+    -webkit-border-radius: 6px;
+}
+#wrapper::-webkit-scrollbar-thumb:vertical {
+    height: 50px;
+    background-color: #c8c8c8;
+    -webkit-border-radius: 6px;
+    -webkit-transition: all .45s ease-in;
+}
+
+#content {
+    width: 850px;
+    margin: 0 auto 0 auto;
+    padding: 30px 0 30px 0;
+}
+
+/**
+ *
+    Headings
+ *
+ */
+
+h1, h2, h3, h4, h5, h6 {
+    text-rendering: optimizeLegibility;
+    line-height: 1;
+    margin: 0.5rem 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    text-rendering: optimizeLegibility;
+    line-height: 1;
+    margin: 0.5rem 0;
+}
+
+h1, 
+h2, 
+h3 { margin-bottom: 1rem; }
+
+h1 { font-size: 2.75rem; }
+h2 { font-size: 2.25rem; }
+h3 { font-size: 1.75rem; }
+h4 { font-size: 1.25rem; }
+h5 { font-size: 1.00rem; }
+h6 { font-size: 0.85rem; }
+
+/**
+ *
+	Paragraphs
+ *
+ */
+
+p {
+	margin: 0 0 1.5em;
+}
+
+/**
+ *
+    Block quotes
+ *
+ */
+
+blockquote {
+    margin: 0 0 1.5em;
+    width: 96%;
+    padding: 0 10px;
+    border-left: 3px solid #ddd;
+    color: #777;
+}
+
+/**
+ *
+	Code Blocks
+ *
+ */
+
+pre code {
+	word-wrap: normal;
+	white-space: pre-wrap;
+    border: none;
+    padding: 0;
+    background-color: transparent;
+    -webkit-border-radius: 0;
+}
+
+pre {
+	white-space: pre-wrap;
+    width: 96%;
+    margin-bottom: 24px;
+    overflow: hidden;
+    padding: 3px 10px;
+    -webkit-border-radius: 3px;
+    background-color: #eee;
+    border: 1px solid #ddd;
+}
+
+code {
+	white-space: nowrap;
+	font-family: monospace;
+    padding: 2px;
+    -webkit-border-radius: 3px;
+    background-color: #eee;
+    border: 1px solid #ddd;
+}
+
+small {
+	font-size: 65%;
+}
+
+/**
+ *
+    Dictionary Definition
+ *
+ */
+
+dt {
+	display: inline;
+    font-weight:bold;
+}
+
+dd {
+	display: block;
+}
+
+/**
+ *
+    Anchors
+ *
+ */
+
+a {
+    color: #308bd8;
+    text-decoration:none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+/**
+ *
+    Horizontal rules
+ *
+ */
+
+hr {
+    width: 100%;
+    margin: 3em auto;
+    border: 0;
+    color: #eee;
+    background-color: #ccc;
+    height: 1px;
+    -webkit-box-shadow:0px 1px 0px rgba(255, 255, 255, 0.75);
+}
+
+/**
+ *
+    Lists
+ *
+ */
+
+ol, ul {
+    list-style-position: outside;
+    padding-left: 0;
+    margin-left: 1.5em;
+}
+
+ol li, ul li {
+    text-align: -webkit-match-parent;
+}
+
+li p {
+    margin: 0.5em 0 0.5em;
+}
+
+ol ol, ol ul, ul ul, ul ol {
+    padding-left: 1.5em;
+}
+
+/**
+ *
+    Tables
+ *
+ */
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 24px;
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-spacing: 0;
+}
+
+table th {
+    padding: 3px 10px;
+    background-color: #eee;
+    border-top: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+}
+
+table tr {
+}
+
+table td {
+    padding: 3px 10px;
+    border-top: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+}
+
+/**
+ *
+    Images
+ *
+ */
+
+img {
+    border: none;
+    display: block;
+    margin: 1em auto;
+    max-width: 100%;
+}
+
+/**
+ *
+    Marks
+ *
+ */
+
+mark {
+    background: #fefec0;
+    padding:1px 3px;
+}
+
+/**
+ *
+    Footnotes
+ *
+ */
+.footnote {
+    font-size: 0.8rem;
+    vertical-align: super;
+}
+.footnotes ol {
+    font-weight: bold;
+}
+.footnotes ol li {
+    text-align: -webkit-match-parent;
+}
+
+.footnotes ol li p {
+    font-weight: normal;
+}
+
+/**
+ *
+    Figures and Captions
+ *
+ */
+caption {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+figure {
+    display: block;
+    text-align: center;
+}
+
+figcaption {
+    font-size: 0.8rem;
+    font-style: italic;
+}
+
+/**
+ *
+    Custom classes
+ *
+ */
+
+.shadow {
+    -webkit-box-shadow: 0 2px 4px #999;
+}
+
+.source {
+    text-align: center;
+    font-size: 0.8em;
+    color: #777;
+    margin: -40px auto;
+}
+#wrapper {
+    width: 99.9%;
+}
+#content {
+    width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Mobile support */
+@media only screen and (max-device-width:1024px) {
+    html {
+        overflow: auto;
+    }
+
+    #wrapper {
+        overflow: auto;
+        position: relative;
+    }
+}/* html elements */
+
+body {
+    background-color: #1a1a1a;
+    color: #bebebe;
+}
+a {
+    color: #308bd8;
+}
+hr {
+    color: #666;
+    background-color: #666;
+    -webkit-box-shadow: none;
+}
+pre {
+    background-color: #222;
+    border-color: #3c3c3c;
+}
+code {
+    background-color: #222;
+    border-color: #3c3c3c;
+}
+blockquote {
+    border-color: #333;
+    color: #999;
+}
+table {
+    border-color: #3c3c3c;
+}
+table th {
+    background-color: #222;
+    border-color: #3c3c3c;
+}
+table td {
+    border-color: #3c3c3c;
+}
+mark {
+    background: #bc990b;
+    color:#000;
+}
+
+/* unique elements */
+
+#wrapper::-webkit-scrollbar-thumb:vertical {
+    background-color: #525252;
+}
+#top-fader {
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(26,26,26,1)), to(rgba(26,26,26,0)));
+}
+#bottom-fader {
+    background: -webkit-gradient(linear, left bottom, left top, from(rgba(26,26,26,1)), to(rgba(26,26,26,0)));
+}
+
+/* custom formatting classes */
+
+.shadow {
+    -webkit-box-shadow: 0 2px 4px #000;
+}@media print {
+/* Printing support.
+ * Override all printing colors to match the Light theme.
+ */
+img, pre, blockquote, table, figure {
+    page-break-inside: avoid;
+}
+body {
+    background-color:#fff;
+}
+#wrapper {
+    position: static;
+    overflow: hidden;
+    color: #000;
+    width: 100%;
+    margin: 0 auto;
+}
+.footnotes {
+    page-break-before: always;
+}
+#content {
+    margin: 0 auto;
+    padding: 0;
+    width: 98%;
+}
+#top-fader, #bottom-fader {
+    display: none;
+}
+hr {
+    color:#ddd;
+    background-color:#ddd;
+    -webkit-box-shadow:0px 1px 0px #ddd;
+}
+pre {
+    background-color:transparent;
+    border: 1px solid #ddd;
+}
+code {
+    background-color:transparent;
+    border: 1px solid #ddd;
+}
+blockquote {
+    border-left: 3px solid #ddd;
+    color: #000;
+}
+ol {
+    /*
+     * Override the list style when printing to ensure list
+     * markers won't get cut.
+     */
+    list-style-position: inside;
+    padding-left: 0;
+    margin-left: 0;
+}
+table {
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
+table th {
+    background-color:transparent;
+    border-top: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+}
+table td {
+    border-top: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+}
+mark {
+    background:transparent;
+    color: #000;
+}
+.source {
+    color: #000;
+}
+}
+  </style>
+</head>
+<body>
+  <div id="wrapper">
+    <div id="content">
+<p><a name="Title" /></p>
+
+<h1>Building and Publishing Node.js Applications with Microsoft Azure Websites (OS X)</h1>
+
+<p>&#8212;
+<a name="Overview" /></p>
+
+<h2>Overview</h2>
+
+<p>In this hands-on lab, you will learn the basics of the Microsoft Azure Websites service for Node.js applications. In Exercise 1, you will see how to use the Microsoft Azure portal for creating a web site and then publish a &#8220;Hello World&#8221; Node.js application using GIT. In Exercise 2, you will learn how to use the Microsoft Azure Command-Line Tools for publishing applications.
+<a name="Objectives" /></p>
+
+<h3>Objectives</h3>
+
+<p>In this hands-on lab, you will learn how to create and publish a Node.js application using:</p>
+
+<ul>
+<li>Git</li>
+<li>Microsoft Azure Command-Line Tools for Mac and Linux</li>
+</ul>
+
+<p><a name="Prerequisites" /></p>
+
+<h3>Prerequisites</h3>
+
+<p>The following is required to complete this hands-on lab:</p>
+
+<ul>
+<li><p><a href="http://git-scm.com/">Git Version Control System</a> </p></li>
+<li><p><a href="http://nodejs.org/#download">Node.js</a> </p></li>
+<li><p><a href="https://www.windowsazure.com/en-us/develop/nodejs/how-to-guides/command-line-tools/">Microsoft Azure Command-Line Tools for Mac and Linux</a> (for Exercise 2 only)</p>
+
+<blockquote>
+<p><strong>Note:</strong> If you do not have Microsoft Azure Command-Line Tools for Mac and Linux installed, open a terminal and run the following command:</p>
+
+<pre><code class="ShellScript">sudo npm install azure-cli -g
+</code></pre>
+
+<p>By using -g, Microsoft Azure Command-Line Tools will install on your machine globally. That means, you will be able to execute azure commands from any location.</p>
+</blockquote></li>
+<li><p>A Microsoft Azure subscription with the Websites Preview enabled - <a href="http://aka.ms/WATK-FreeTrial">sign up for a free trial</a></p></li>
+</ul>
+
+<blockquote>
+<p><strong>Note:</strong> This lab was designed to use the OS X Operating System.</p>
+</blockquote>
+
+<p>&#8212;
+<a name="Exercises" /></p>
+
+<h2>Exercises</h2>
+
+<p>This hands-on lab includes the following exercises:</p>
+
+<ol>
+<li><a href="#Exercise1">Building and Publishing a Node.js Web Site using GIT</a></li>
+<li><a href="#Exercise2">Building and Publishing a Node.js Web Site using the Command-Line Tools</a></li>
+</ol>
+
+<hr>
+
+<p><a name="Exercise1" /></p>
+
+<h3>Exercise 1: Building and Publishing a Node.js Web Site using GIT</h3>
+
+<p>In the first exercise you will create a new web site from the Microsoft Azure portal, create a &#8216;Hello World&#8217; Node.js application and finally publish it, taking advantage of the new GIT publishing feature provided by Microsoft Azure.</p>
+
+<p><a name="Ex1Task1" /></p>
+
+<h4>Task 1 ñ Creating a New Web Site Hosted in Microsoft Azure</h4>
+
+<ol>
+<li><p>Go to the <a href="https://manage.windowsazure.com/">Microsoft Azure portal</a> <strong>Microsoft Azure portal</strong> and sign in using the <strong>Microsoft Account</strong> credentials associated with your subscription.</p>
+
+<img src="images/log-in-into-windows-azure-portal.png?raw=true" alt="Log in into Microsoft Azure portal" title="Log in into Microsoft Azure portal" />
+
+
+<p><em>Log on into Microsoft Azure portal</em></p></li>
+<li><p>In Microsoft Azure portal home page, click the <strong>New</strong> button located on the bottom bar.</p>
+
+<img src="images/creating-a-new-web-site.png?raw=true" alt="Creating a new web site" title="Creating a new Web Site" />
+
+
+<p><em>Creating a new web site</em></p></li>
+<li><p>Click <strong>Web Site | Quick Create</strong>. Provide an available URL for the new web site, select a region, and click <strong>Create Web Site</strong>.</p>
+
+<img src="images/creating-a-new-web-site-using-quick-create-op.png?raw=true" alt="Creating a new Web Site using the Quick Create option" title="Creating a new Web Site using Quick Create option" />
+
+
+<p><em>Creating a new Web Site using Quick Create option</em></p></li>
+<li><p>Wait until the new web site is created.</p>
+
+<img src="images/creating-new-web-site-status.png?raw=true" alt="Creating new web site status" title="Creating new web site status" />
+
+
+<p><em>Creating new web site status</em></p></li>
+<li><p>Once the web site is created click on the <strong>URL</strong> link to check that the new web site is working.</p>
+
+<img src="images/browsing-to-new-site.png?raw=true" alt="Browsing to the new web site" title="Browsing to the new web site" />
+
+
+<p><em>Browsing to the new web site</em></p>
+
+<img src="images/web-site-running.png?raw=true" alt="Web site running" title="Web site running" />
+
+
+<p><em>Web site running</em></p></li>
+<li><p>Go back to the portal and click the web site name column to go to the site&#8217;s dashboard.</p>
+
+<img src="images/selecting-the-dashboard-tab.png?raw=true" alt="Selecting the dashboard tab" title="Selecting the dashboard tab" />
+
+
+<p><em>Selecting the dashboard tab</em></p></li>
+<li><p>Click the <strong>Set up Git publishing</strong> link.</p>
+
+<img src="images/setting-up-git-publishing.png?raw=true" alt="Setting up Git Publishing" title="Setting up Git Publishing" />
+
+
+<p><em>Setting up Git Publishing</em></p></li>
+<li><p>Wait a few seconds until the Git repository is ready.</p>
+
+<img src="images/git-repository-created.png?raw=true" alt="Git repository created" title="Git repository created" />
+
+
+<p><em>Git repository created</em></p></li>
+<li><p>Do not close the portal.</p></li>
+</ol>
+
+<p><a name="Ex1Task2" /></p>
+
+<h4>Task 2 - Creating a new Node.js Website</h4>
+
+<ol>
+<li><p>Create a new folder in a location that can be easily accessed.</p></li>
+<li><p>Open your favorite text editor and copy the following code that will send the string <em>Hello World</em> to the browser. Save the file as <strong>server.js</strong> in the folder you have previously created.</p>
+
+<pre><code class="Javascript">var http = require('http');
+var port = process.env.port || 1337;
+http.createServer(function (req, res) {
+                  res.writeHead(200, { 'Content-Type': 'text/plain' });
+                  res.end('Hello World\n');
+}).listen(port);
+</code></pre></li>
+<li><p>Create a new text file and paste the following code. Save the file as <strong>package.json</strong> in the same folder.</p>
+
+<pre><code class="Json">{
+  &quot;name&quot;: &quot;HelloWorld&quot;,
+  &quot;version&quot;: &quot;0.0.1&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;./server.js&quot;,
+  &quot;engines&quot;: { &quot;node&quot;: &quot;&gt;= 0.6.0&quot; }
+}
+</code></pre>
+
+<blockquote>
+<p><strong>Note:</strong> The package.json file tells the Node.js package manager (npm) how your package is structured, and which are the module dependencies. As this application is very simple it does not require dependencies, but in more complex applications you will probably need to specify a &#8220;dependencies&#8221; property. When publishing applications with Git, the Microsoft Azure platform automatically installs all the dependencies declared in this file.</p>
+</blockquote></li>
+<li><p>In the text editor create a new file and paste the following code. This configuration indicates that the <strong>server.js</strong> file is a Node.js application
+that should be handled by the <strong>iisnode</strong> module.</p>
+
+<blockquote>
+<p><strong>Note:</strong> The <a href="https://github.com/tjanczuk/iisnode">iisnode</a> project provides a native IIS 7.x module that allows hosting of node.js applications in IIS 7.x.</p>
+</blockquote>
+
+<pre><code class="XML">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;configuration&gt;
+    &lt;system.webServer&gt;
+          &lt;modules runAllManagedModulesForAllRequests=&quot;false&quot; /&gt;
+
+          &lt;!-- indicates that the server.js file is a node.js application 
+            to be handled by the iisnode module --&gt;
+          &lt;handlers&gt;
+            &lt;add name=&quot;iisnode&quot; path=&quot;server.js&quot; verb=&quot;*&quot; modules=&quot;iisnode&quot; /&gt;
+          &lt;/handlers&gt;
+          &lt;rewrite&gt;
+            &lt;rules&gt;
+              &lt;clear /&gt;
+              &lt;rule name=&quot;app&quot; enabled=&quot;true&quot; patternSyntax=&quot;ECMAScript&quot; stopProcessing=&quot;true&quot;&gt;
+                &lt;match url=&quot;server\.js.+&quot; negate=&quot;true&quot; /&gt;
+                &lt;conditions logicalGrouping=&quot;MatchAll&quot; trackAllCaptures=&quot;false&quot; /&gt;
+                &lt;action type=&quot;Rewrite&quot; url=&quot;server.js&quot; /&gt;
+              &lt;/rule&gt;
+            &lt;/rules&gt;
+          &lt;/rewrite&gt;
+    &lt;/system.webServer&gt;
+&lt;/configuration&gt;
+</code></pre></li>
+<li><p>Save the file as <strong>web.config</strong> in your web site folder.</p></li>
+</ol>
+
+<p><a name="Ex1Task3" /></p>
+
+<h4>Task 3 ñ Publishing the Node.js application using Git</h4>
+
+<ol>
+<li><p>Go back to the portal. Open the site&#8217;s <strong>Dashboard</strong> and copy the <strong>Git Clone Url</strong> value from the bottom of the page.</p>
+
+<img src="images/git-clone-url.png?raw=true" alt="Git Clone Url" />
+
+
+<p><em>Copying the Git Clone Url</em></p></li>
+<li><p>In order to publish your local files, open a <strong>Terminal</strong> console, change directories to your application folder and run the following commands.</p>
+
+<pre><code class="Terminal">git init
+git add .
+git commit -m &quot;initial commit&quot;
+</code></pre>
+
+<blockquote>
+<p><strong>Note:</strong> You can learn more about Git commands in http://git-scm.com/documentation.</p>
+</blockquote></li>
+<li><p>To add the remote Microsoft Azure repository and push the files, run the following commands. Replace the <em>{Git Clone Url}</em> placeholder with the value obtained from the portal.</p>
+
+<pre><code class="Terminal">git remote add azure {Git Clone Url}
+git push azure master
+</code></pre></li>
+<li><p>Enter the deployment credentials when prompted.</p>
+
+<blockquote>
+<p><strong>Note:</strong> Deployment credentials are other than the <strong>Microsoft Account</strong> associated with your Microsoft Azure subscription and are valid for use with all Microsoft Azure Websites associated with your subscription. If you don&#8217;t know your deployment credentials you can easily reset them using the management portal. Open the web site <strong>Dashboard</strong> page and click the <strong>Reset deployment credentials</strong> link. Provide a new password and click Ok.</p>
+
+<img src="images/deployment-credentials.png?raw=true" alt="Resetting the deployment credentials" title="Resetting the deployment credentials" />
+
+
+<p><em>Resetting the deployment credentials</em></p>
+</blockquote></li>
+<li><p>Go to the site&#8217;s <strong>Dashboard</strong> and click the <strong>Site Url</strong> link to ensure that the site is running. A <em>Hello Word</em> message will be shown.</p>
+
+<img src="images/running-the-nodejs-application.png?raw=true" alt="Running the Node.js application" title="Running the Node.js application" />
+
+
+<p><em>Running the Node.js application</em></p></li>
+</ol>
+
+<hr>
+
+<p><a name="Exercise2" /></p>
+
+<h3>Exercise 2: Building and Publishing a Node.js Web Site using the Command-Line Tools</h3>
+
+<p>In this exercise, you will learn how manage Websites using the Microsoft Azure Command-Line Tools for Mac and Linux.</p>
+
+<blockquote>
+<p><strong>Note:</strong> These steps assume you have the Microsoft Azure Command-Line Tools for Mac and Linux installed.</p>
+</blockquote>
+
+<ol>
+<li><p>Open a <strong>Terminal</strong> console and execute the following command to download your account&#8217;s <strong>publish settings</strong> file. A new browser window will pop up. Log on using your <strong>Microsoft Account</strong> credentials associated with your Microsoft Azure subscription.</p>
+
+<pre><code class="Terminal">azure account download
+</code></pre>
+
+<p>Your publish settings will be downloaded to your browser&#8217;s default download folder (usually ~/Downloads) and a new page with relevant information will be displayed.</p>
+
+<img src="images/download-publishsettings.png?raw=true" alt="Downloading the publish settings file" title="Downloading the publish settings file" />
+
+
+<p><em>Downloading the publish settings file</em></p></li>
+<li><p>Go back to the <strong>Terminal</strong> console and import the file downloaded in the previous step by running the following command, specifying the <strong>publish settings</strong> file location in the <em>{publish_settings_file}</em> placeholder.</p>
+
+<pre><code class="Terminal">azure account import {publish_settings_file}
+</code></pre></li>
+<li><p>Execute <a href="#Ex1Task2">Task 2 from Exercise 1</a> to create a Node.js site, but placing the files in a different folder.</p></li>
+<li><p>Go back to the <strong>Terminal</strong> console and change directories in order to go to the folder where you placed the files.</p></li>
+<li><p>Run the following command to create the Microsoft Azure Web Site with <strong>GIT publishing</strong> feature enabled.</p>
+
+<pre><code class="Terminal">azure site create --git
+</code></pre>
+
+<p>Provide a site name when prompted, for example <strong>nodejsappOSXcli</strong>. Then select a region and proceed.</p>
+
+<img src="images/new-web-site-cli.png?raw=true" alt="Creating a new Web Site and enabling GIT publishing" title="Creating a new Web Site and enabling GIT publishing" />
+
+
+<p><em>Creating a new Web Site and enabling GIT publishing</em></p>
+
+<blockquote>
+<p><strong>Note:</strong> By specifying <strong>&#8211;git</strong> when running the command <strong>site create</strong> you don&#8217;t need to run additional commands to initialize the Git repository or add the git remote, since these two tasks will be done automatically by the Microsoft Azure Command-Line Tools.</p>
+</blockquote></li>
+<li><p>Now you will add the application files to a Git repository and push them to the Microsoft Azure Web Site. To do this, go back to the command prompt and execute the following commands. When prompted provide your deployment credentials.</p>
+
+<pre><code class="Terminal">git add .
+git commit -m &quot;initial commit&quot;
+git push azure master
+</code></pre>
+
+<img src="images/push-site.png?raw=true" alt="Pushing the site files" title="Pushing the site files" />
+
+
+<p><em>Pushing the site files</em></p>
+
+<blockquote>
+<p><strong>Note:</strong> Deployment credentials are other than the <strong>Microsoft Account</strong> associated with your Microsoft Azure subscription and are valid for use with all Microsoft Azure Websites associated with your subscription. If you don&#8217;t know your deployment credentials you can easily reset them using the management portal. Open the web site <strong>Dashboard</strong> page and click the <strong>Reset deployment credentials</strong> link. Provide a new password and click Ok.</p>
+
+<img src="images/deployment-credentials.png?raw=true" alt="Resetting the deployment credentials" title="Resetting the deployment credentials" />
+
+
+<p><em>Resetting the deployment credentials</em></p>
+</blockquote></li>
+<li><p>Run the following command to open the published deployments for your site in Microsoft Azure portal.</p>
+
+<pre><code class="Terminal">azure site portal
+</code></pre>
+
+<p>In Microsoft Azure portal, select your site from the list and open the <strong>Deployments</strong> page of the site. Check out the latest deployment.</p>
+
+<img src="images/site-deployments.png?raw=true" alt="Site deployments" title="Site deployments" />
+
+
+<p><em>Site deployments</em></p></li>
+<li><p>Execute the following command to browse to the published web site and make sure it works.</p>
+
+<pre><code class="Terminal">azure site browse
+</code></pre>
+
+<img src="images/website-working-cli.png?raw=true" alt="Web site working" title="Web site working" />
+
+
+<p><em>Web site working</em></p></li>
+</ol>
+    </div>
+  </div> <!-- End wrapper -->
+</body>
+</html>
